@@ -1,7 +1,8 @@
 <!-- Home -->
 <template>
   <div>
-    <h1>首页</h1>
+    <h1>首页 <span v-text='$store.state.msg'></span></h1>
+    <h2 v-text='$store.getters.msg2'></h2>
     <div class="list">
       <span v-for="item in list" v-text="item.name" :key="item.id" @click="go(item.id)"></span>
     </div>
