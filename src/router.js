@@ -10,8 +10,8 @@ const Home = () => import('@/pages/Home.vue')
 const Find = () => import('@/pages/Find.vue')
 const Cart = () => import('@/pages/Cart.vue')
 const User = () => import('@/pages/User.vue')
-const Good = () => import('@/components/Find/Good.vue')
-const Price = () => import('@/components/Find/Price.vue')
+// const Good = () => import('@/components/Find/Good.vue')
+// const Price = () => import('@/components/Find/Price.vue')
 const Detail = () => import('@/pages/Detail.vue')
 
 // 创建路由实例
@@ -25,21 +25,7 @@ let router = new VueRouter({
         },
         {
             path : '/find',
-            component : Find,
-            children : [
-                {
-                    path : 'good',
-                    component : Good
-                },
-                {
-                    path : 'price',
-                    component : Price
-                },
-                {
-                    path : '/find',
-                    redirect : '/find/good'
-                }
-            ]
+            component : Find
         },
         {
             path : '/cart',
@@ -71,7 +57,7 @@ router.beforeEach((to,from,next)=>{
         if(isLogin){
             next()
         }else{
-            next('/user')
+            next()
         }
     }else{
         next()

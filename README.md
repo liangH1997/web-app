@@ -164,42 +164,101 @@ created by xhf at 2020-6-16
 	在组件中使用mapState映射state数据，就可以在视图中进行各种渲染了。
 	注意：如果调接口时产生跨域问题，要在vue.config.js中配置代理并重启项目，进而解决跨域问题。特别注意baseUrl的切换，搞清楚哪个才是你需要访问的服务器地址。
 
+#### 五、rem布局（移动端）
 
-#### 五、UI设计
+1、理解手机的dpr（屏幕像素密码比）
 
-	1、安装
+	dpr = 夜晶屏幕px尺寸 / 物理尺寸
+	常用的dpr有：dpr=2, dpr=3
+	window.devicePixelRatio这个api可以获取到当前屏幕的dpr
+
+2、区分这个CSS单位
+
+	px：绝对尺寸
+	rem：相对于html元素的字体(r指的是root),如果html的fx=10px，那么1rem=10px
+	em：相对于当前元素（父级元素）的font-size，如果当前元素的fz=10px，那么1em=10px
+
+3、理解rem布局
+
+	所谓的rem布局，就是以rem为单位进行尺寸设置。
+	做法：无论我们的网页运行在什么硬件上，都把根字体设置成当前硬件屏幕的十分之一，那么10rem=屏幕的宽度。
+	举例：如果当前屏幕是750px，我们就 root fz=75px  1rem=75px
+			如果当前屏幕是828px，我们就 root fz=82.8px  1rem=82.8
 	
-	cnpm install vant -S
-	cnpm install babel-plugin-import -D
-	配置babel.config.js文件并重启项目
-	
-	2、使用
-	
-	import { Button } from 'vant'
-	components: { [Button.name]: Button }
-	<van-button size='small' type="primary">主要按钮</van-button>
-	
-	3、rem配置
-	
-	index.html引入rem.js
-	vscode中安装 px-to-rem 插件
-	并设置该插件的转化尺寸为 75
-	在写样式时，按 alt+Z 把px转化为rem
-	
-	4、sass
-	
+	在html文件中，1rem=屏幕宽度*0.1  10rem=屏幕宽度
+	在代码中，1rem = UI稿*0.1  10rem=UI稿的宽度（750px）
+	在代码中，我们 x(px) = (x/75)rem
+
+4、那我该怎么改root(html)的根字体font-size呢?
+
+```
+	# rem.js
+	// 获取html元素DOM对象
+	var oHtml = document.querySelector('html')
+	// 获取html的总宽度
+	var w = oHtml.getBoundingClientRect().width
+	// 设置根字体的大小等于html节点的宽度的十分之一
+	oHtml.style.fontSize = w/10 + 'px'
+```
+
+5、项目中使用rem布局
+
+	在/public/index.html中引入rem.js。
+	在vscode中安装 px-to-rem 插件，并设置该插件的转化尺寸为 75。
+	在写样式时，按 alt+Z 可以把px转化为rem。
+
+
+#### 六、Sass使用
+
+1、安装
+
 	cnpm install sass-loader -D
 	cnpm install node-sass -D
-	编写全局的 common.scss 样式文件
+
+```
 	<style lang="scss" scoped>
 		@import './assets/common.scss';
 		@import '@/assets/common.scss';
 	</style>
+```
 
-<<<<<<< HEAD
-		在组件中this.$store.dispatch('已定义的action方法', '负载')
+	要指定style标签的lang='scss'
+	scoped 属性表示局部样式，仅对当前组件生效。
 
-=======
-		在组件中this.$store.dispatch('已定义的action方法', '负载')
+2、sass基础知识点
+
+	全局的 common.scss 样式文件，可以使用 @import 导入。
+	作用域：sass允许样式嵌套，以形成作用域关系，& 符号代表父级元素。
+	使用变量：sass中允许定义变量、使用变量，变量使用 $ 来定义。
+
+3、在vue中使用sass要注意的地方
+
+	sass这门技术的名字叫 sass
+	sass样式表的文件后缀是 .scss
+	在style标签中指定lang时，lang='scss'
+	使用npm安装node-sass模块时会出错，建议使用cnpm进行安装。
+
+#### 七、vant
+
+1、安装
+
+	安装vant：cnpm install vant -S
+	配置按需加载（推荐）：
+		cnpm install babel-plugin-import -D
+		配置babel.config.js文件并重启项目（见vant文档）
+
+2、使用入门
+
+	在组件中引入Vant组件：
+		import { Button, Tabbar } from 'vant'
+	把引入的组件转化成局部组件：
+		components: { [Button.name]: Button, [Tabbar.name]: Tabbar }
+	在template中使用vant组件：
+		<van-button size='small' type="primary">按钮</van-button>
+		<van-tabbar route fixed></van-tabbar>
+
+3、温馨提示
+
+	每一个Vant组件都有非常多的自定义属性和自定义事件，一切以文档为准。
 
 >>>>>>> 状态管理1.0
