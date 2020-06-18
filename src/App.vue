@@ -15,7 +15,7 @@
 export default {
   name: 'App',
   mounted : function(){
-    console.log(this.$store)
+    // console.log(this.$store)
   }
 }
 </script>

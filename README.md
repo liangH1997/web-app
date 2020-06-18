@@ -73,30 +73,27 @@ created by xhf at 2020-6-16
 4、路由的基础知识
 
 1.  命名视图：给router-view组件命名，只有名字匹配了组件才能显示在视图中。
-2.  路由别名：给路由匹配关系取个小名，使用alias属性。
-3.  命名路由：给路由匹配关系取个名字，使用name属性。
-4.  重定向：从一个路径自动跳转到另一个路径，使用redirect属性。
-5.  两种路由模式：History模式 vs. Hash模式，前者部署至服务器会报404.
-6.  编程式导航：this.$router.push() / replace()。
-7.  通配符：在定义一一对应的路由匹配关系时，path中可以使用 * 来匹配任意字符。
-8.  动态路由：`{path:'/detail/:id', component: Detail}`，在Detail组件中可以使用`this.$route.params.id`来接收参数。
-    <<<<<<< HEAD
-9.  路由传参：`{path:'/detail/:id', component: Detail, props:true}`props选项来接收参数。
-10.  嵌套路由：<router-view>组件可以进行多级嵌套，譬如`/find/good`这样的多级路由。
-11.  路由懒加载：一种性能优化方案，让组件可以在路由匹配成功时按需加载。
-12.  路由守卫：对路由匹配行为进行拦截，全局守卫使用`router.beforeEach()`，局部守卫使用`beforeRouteEnter()`，常常用于实现登录权限拦截功能。
-13.  watch侦听器，还可以监听 $route的变化。
+2. 路由别名：给路由匹配关系取个小名，使用alias属性。
+3. 命名路由：给路由匹配关系取个名字，使用name属性。
+4. 重定向：从一个路径自动跳转到另一个路径，使用redirect属性。
+5. 两种路由模式：History模式 vs. Hash模式，前者部署至服务器会报404.
+6. 编程式导航：this.$router.push() / replace()。
+7. 通配符：在定义一一对应的路由匹配关系时，path中可以使用 * 来匹配任意字符。
+8. 动态路由：`{path:'/detail/:id', component: Detail}`，在Detail组件中可以使用`this.$route.params.id`来接收参数。
+<<<<<<< HEAD
+9. 路由传参：`{path:'/detail/:id', component: Detail, props:true}`props选项来接收参数。
+10. 嵌套路由：<router-view>组件可以进行多级嵌套，譬如`/find/good`这样的多级路由。
+11. 路由懒加载：一种性能优化方案，让组件可以在路由匹配成功时按需加载。
+12. 路由守卫：对路由匹配行为进行拦截，全局守卫使用`router.beforeEach()`，局部守卫使用`beforeRouteEnter()`，常常用于实现登录权限拦截功能。
+13. watch侦听器，还可以监听 $route的变化。
 
 
 =======
-
 9. 路由传参：router.js中设置路由：`{path:'/detail/:id', component: Detail, props:true}`，在跳转后利用子组件Detail的props选项来接收参数。
 10. 嵌套路由：<router-view>组件可以进行多级嵌套，譬如`/find/good`这样的多级路由。
 11. 路由懒加载：一种性能优化方案，让组件可以在路由匹配成功时按需加载，使用箭头函数，例：const User = ()=>import('路径')
 12. 路由守卫：对路由匹配行为进行拦截，全局守卫在router.js中使用`router.beforeEach()`，局部守卫在子组件中使用`beforeRouteEnter()`钩子函数，常常用于实现登录权限拦截功能。
 13. watch侦听器，还可以监听 $route的变化。
-
->>>>>>> 状态管理1.0
 
 #### 三、状态管理vuex
 
@@ -128,7 +125,81 @@ created by xhf at 2020-6-16
 		getters：相当于是计算属性
 		mutations：这是vuex官方建议的用于直接地同步地修改state
 		actions：这是vuex与后端接口交互的唯一入口，用于间接地异步地修改state
-		modules：
+		modules：用于把一个完整的根store拆分成多个子模块，以方便工作协同开发，减少工作冲突。
 	2）如何触发mutations方法？
 		在组件中this.$store.commit('已定义的mutation方法', '负载')
+		建议使用 mapMutations('命名空间', [])进行映射，使用this.进行访问。
 	3）如何触发actions方法？
+		在组件中this.$store.dispatch('已定义的action方法', '负载')
+		建议使用 mapActions('命名空间', [])进行映射，使用this.进行访问。
+	4）如何把根store拆分成多个子module？
+		定义子module时，一定要记得加上 namespaced:true 以开启命名空间
+		在 new Vuex.Store({modules: {}}) 中使用modules选项，对多个子module进行组装。
+	5）四个 mapXXX 的使用
+		mapState 和 mapGetters 只能在computed计算中进行使用。
+		mapMutations 和 mapActions 只能methods选项中进行使用。
+		映射进来的变量和方法，可以使用 this.进行访问，更方便。
+
+#### 四、axios
+
+1、axios有什么优势？
+
+	它是基于Promise封装的，用起来非常方便，解决了回调地狱的问题。
+	它在客户端、node.js服务器都可以进行使用。
+
+2、安装与使用入门
+
+	cnpm install axios -S
+	封装axios：axios.create() 创建axios实例，指定基准URL等字符。
+		封装请求拦截器：axios.interceptors.request.use() 在请求发出之前进行拦截。
+		封装响应拦截器：axios.interceptors.response.use() 在客户端收到响应之前进行拦截。
+	axios封装完成后，在代码中就可以调后端接口了。
+		axios({url: '', method: 'GET', params: '入参'}).then()
+		axios({url: '', method: 'POST', data: '入参'}).then()
+
+3、axios+vuex走通Vuex全流程（步骤说明）
+
+	在actions中封装方法，使用axios调取后端接口，成功后把数据mutation到state中去。
+	在组件中使用mapActions映射actions方法，在mounted中触发接口调用。
+	在组件中使用mapState映射state数据，就可以在视图中进行各种渲染了。
+	注意：如果调接口时产生跨域问题，要在vue.config.js中配置代理并重启项目，进而解决跨域问题。特别注意baseUrl的切换，搞清楚哪个才是你需要访问的服务器地址。
+
+
+#### 五、UI设计
+
+	1、安装
+	
+	cnpm install vant -S
+	cnpm install babel-plugin-import -D
+	配置babel.config.js文件并重启项目
+	
+	2、使用
+	
+	import { Button } from 'vant'
+	components: { [Button.name]: Button }
+	<van-button size='small' type="primary">主要按钮</van-button>
+	
+	3、rem配置
+	
+	index.html引入rem.js
+	vscode中安装 px-to-rem 插件
+	并设置该插件的转化尺寸为 75
+	在写样式时，按 alt+Z 把px转化为rem
+	
+	4、sass
+	
+	cnpm install sass-loader -D
+	cnpm install node-sass -D
+	编写全局的 common.scss 样式文件
+	<style lang="scss" scoped>
+		@import './assets/common.scss';
+		@import '@/assets/common.scss';
+	</style>
+
+<<<<<<< HEAD
+		在组件中this.$store.dispatch('已定义的action方法', '负载')
+
+=======
+		在组件中this.$store.dispatch('已定义的action方法', '负载')
+
+>>>>>>> 状态管理1.0
