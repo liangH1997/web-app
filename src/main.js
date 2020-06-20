@@ -5,6 +5,9 @@ Vue.config.productionTip = false
 
 import router from "./router"
 import store from "./store/"
+import api from '@/utils/api'
+
+Vue.prototype.$api = api
 
 new Vue({
   router,

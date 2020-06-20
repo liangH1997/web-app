@@ -12,7 +12,9 @@ const Cart = () => import('@/pages/Cart.vue')
 const User = () => import('@/pages/User.vue')
 // const Good = () => import('@/components/Find/Good.vue')
 // const Price = () => import('@/components/Find/Price.vue')
-const Detail = () => import('@/pages/Detail.vue')
+const Login = () => import('@/pages/Login.vue')
+const Register = () => import('@/pages/Register.vue')
+const GoodDesc = () => import('@/pages/GoodDesc.vue')
 
 // 创建路由实例
 
@@ -36,9 +38,17 @@ let router = new VueRouter({
             component : User
         },
         {
+            path : '/login',
+            component : Login
+        },
+        {
+            path : '/register',
+            component : Register
+        },
+        {
             path : '/detail/:id',
-            component : Detail,
-            props: true
+            component : GoodDesc,
+            props : true
         },
         {
             path : '/',

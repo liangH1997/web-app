@@ -3,12 +3,12 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 
 import song from './modules/song'
-import study from './modules/study'
+import cart from './modules/cart'
 
 const store = new Vuex.Store({
     modules: {
         song,
-        study
+        cart
     }
 })
 
