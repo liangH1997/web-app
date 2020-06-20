@@ -19,15 +19,15 @@ export default {
         [Tabbar.name] : Tabbar,
         [TabbarItem.name] : TabbarItem
     },
-    mounted(){
-        // console.log(TabbarItem,Tabbar)
-        this.upDateList({})
-    },
     computed : {
         ...mapState('cart',['list'])
     },
     methods : {
         ...mapActions('cart',['upDateList'])
+    },
+    mounted(){
+        // console.log(TabbarItem,Tabbar)
+        this.upDateList({})
     }
 }
 </script>

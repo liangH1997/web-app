@@ -100,9 +100,6 @@ export default {
         [SwipeCell.name]:SwipeCell,
         [Toast.name]:Toast
     },
-    mounted(){
-        this.upDateList({})
-    },
     computed : {
         ...mapState('cart',['list']),
         ...mapGetters('cart',['total'])
@@ -169,7 +166,7 @@ export default {
             let str = ''
             this.list.map((ele)=>{
                 if(ele.checked){
-                    str+=";"+ele.good_id
+                    str+=";"+ele._id
                 }
             })
             console.log('提交付钱啦啦！',str)
@@ -179,11 +176,15 @@ export default {
             this.$api.submitCart(data).then(()=>{
                 Toast('下单成功！')
                 this.upDateList({})
+                // console.log(this.list)
             })
         },
         onClickEditAddress(){
             console.log('修改地址了！')
         }
+    },
+    mounted(){
+        this.upDateList({})
     }
 }
 </script>

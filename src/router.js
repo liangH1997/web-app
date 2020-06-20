@@ -61,13 +61,12 @@ let router = new VueRouter({
 // 全局路由守卫
 
 router.beforeEach((to,from,next)=>{
-    let isLogin = false
     console.log(to,from);
-    if(to.fullPath == '/cart'){
-        if(isLogin){
+    if(to.fullPath == '/cart' || to.fullPath == '/user' ){
+        if(localStorage.getItem('token')){
             next()
         }else{
-            next()
+            router.push('/login')
         }
     }else{
         next()

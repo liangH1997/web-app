@@ -27,6 +27,12 @@ let cartModule = {
     },
     actions : {
         upDateList(store,payload){
+            // console.log('123')
+            if(!localStorage.getItem('token')){
+                // console.log('567')
+                store.commit('upList',[])
+                return
+            }
             getCartList(payload).then((res)=>{
                 // console.log(res)
                 res.map((ele)=>{

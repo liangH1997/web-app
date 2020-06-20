@@ -84,6 +84,24 @@ export function submitCart(data){
     })
 }
 
+// 获取所有品类
+export function getAllCates(params){
+    return fetch({
+        url : '/jd/getAllCates',
+        method : 'GET',
+        params
+    })
+}
+
+// 获取对应品类商品列表
+export function getCateGoods(params){
+    return fetch({
+        url : '/jd/getCateGoodList',
+        method : 'GET',
+        params
+    })
+}
+
 export default {
     register,
     toLogin,
@@ -93,5 +111,7 @@ export default {
     getCartList,
     upDateCart,
     deleteCart,
-    submitCart
+    submitCart,
+    getAllCates,
+    getCateGoods
 }
