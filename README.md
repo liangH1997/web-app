@@ -1,5 +1,4 @@
 # webapp-shop
-
 created by xhf at 2020-6-16
 
 ## webapp项目周
@@ -8,6 +7,8 @@ created by xhf at 2020-6-16
 	项目工程架构
 	业务开发：UI还原、组件设计、业务逻辑实现
 	项目上线
+
+测试驱动开发
 
 #### 一、Vue项目创建
 
@@ -71,29 +72,20 @@ created by xhf at 2020-6-16
 	 	3）如何改变url？（router-link声明式路由，编程式路由）
 
 4、路由的基础知识
+ 	1）命名视图：给router-view组件命名，只有名字匹配了组件才能显示在视图中。
+	2）路由别名：给路由匹配关系取个小名，使用alias属性。
+	3）命名路由：给路由匹配关系取个名字，使用name属性。
+	4）重定向：从一个路径自动跳转到另一个路径，使用redirect属性。
+	5）两种路由模式：History模式 vs. Hash模式，前者部署至服务器会报404.
+	6）编程式导航：this.$router.push() / replace()。
+	7）通配符：在定义一一对应的路由匹配关系时，path中可以使用 * 来匹配任意字符。
+	8）动态路由：`{path:'/detail/:id', component: Detail}`，在Detail组件中可以使用`this.$route.params.id`来接收参数。
+	9）路由传参：`{path:'/detail/:id', component: Detail, props:true}`props选项来接收参数。
+	10）嵌套路由：<router-view>组件可以进行多级嵌套，譬如`/find/good`这样的多级路由。
+	11）路由懒加载：一种性能优化方案，让组件可以在路由匹配成功时按需加载。
+	12）路由守卫：对路由匹配行为进行拦截，全局守卫使用`router.beforeEach()`，局部守卫使用`beforeRouteEnter()`，常常用于实现登录权限拦截功能。
+	13）watch侦听器，还可以监听 $route的变化。
 
-1.  命名视图：给router-view组件命名，只有名字匹配了组件才能显示在视图中。
-2. 路由别名：给路由匹配关系取个小名，使用alias属性。
-3. 命名路由：给路由匹配关系取个名字，使用name属性。
-4. 重定向：从一个路径自动跳转到另一个路径，使用redirect属性。
-5. 两种路由模式：History模式 vs. Hash模式，前者部署至服务器会报404.
-6. 编程式导航：this.$router.push() / replace()。
-7. 通配符：在定义一一对应的路由匹配关系时，path中可以使用 * 来匹配任意字符。
-8. 动态路由：`{path:'/detail/:id', component: Detail}`，在Detail组件中可以使用`this.$route.params.id`来接收参数。
-<<<<<<< HEAD
-9. 路由传参：`{path:'/detail/:id', component: Detail, props:true}`props选项来接收参数。
-10. 嵌套路由：<router-view>组件可以进行多级嵌套，譬如`/find/good`这样的多级路由。
-11. 路由懒加载：一种性能优化方案，让组件可以在路由匹配成功时按需加载。
-12. 路由守卫：对路由匹配行为进行拦截，全局守卫使用`router.beforeEach()`，局部守卫使用`beforeRouteEnter()`，常常用于实现登录权限拦截功能。
-13. watch侦听器，还可以监听 $route的变化。
-
-
-=======
-9. 路由传参：router.js中设置路由：`{path:'/detail/:id', component: Detail, props:true}`，在跳转后利用子组件Detail的props选项来接收参数。
-10. 嵌套路由：<router-view>组件可以进行多级嵌套，譬如`/find/good`这样的多级路由。
-11. 路由懒加载：一种性能优化方案，让组件可以在路由匹配成功时按需加载，使用箭头函数，例：const User = ()=>import('路径')
-12. 路由守卫：对路由匹配行为进行拦截，全局守卫在router.js中使用`router.beforeEach()`，局部守卫在子组件中使用`beforeRouteEnter()`钩子函数，常常用于实现登录权限拦截功能。
-13. watch侦听器，还可以监听 $route的变化。
 
 #### 三、状态管理vuex
 
@@ -164,6 +156,7 @@ created by xhf at 2020-6-16
 	在组件中使用mapState映射state数据，就可以在视图中进行各种渲染了。
 	注意：如果调接口时产生跨域问题，要在vue.config.js中配置代理并重启项目，进而解决跨域问题。特别注意baseUrl的切换，搞清楚哪个才是你需要访问的服务器地址。
 
+
 #### 五、rem布局（移动端）
 
 1、理解手机的dpr（屏幕像素密码比）
@@ -190,7 +183,6 @@ created by xhf at 2020-6-16
 	在代码中，我们 x(px) = (x/75)rem
 
 4、那我该怎么改root(html)的根字体font-size呢?
-
 ```
 	# rem.js
 	// 获取html元素DOM对象
@@ -221,7 +213,6 @@ created by xhf at 2020-6-16
 		@import '@/assets/common.scss';
 	</style>
 ```
-
 	要指定style标签的lang='scss'
 	scoped 属性表示局部样式，仅对当前组件生效。
 
@@ -240,7 +231,7 @@ created by xhf at 2020-6-16
 
 #### 七、vant
 
-1、安装
+1、安装vant
 
 	安装vant：cnpm install vant -S
 	配置按需加载（推荐）：
@@ -332,6 +323,8 @@ created by xhf at 2020-6-16
     入参：
         goods: String  商品id字符串，多个商品id要用英式;进行连接。
 
+
+
 #### 九、自主项目（管理系统开发）
 
 1、学习目标
@@ -351,3 +344,146 @@ created by xhf at 2020-6-16
 
 	ToB产品：数据交互极其复杂，一般不用设计UI稿、面向原型开发、使用第三方UI组件库快速布局。
 	ToC产品：常常需要UI设计，用户体验要求极高，产品性能要求也更高。
+
+
+#### 十、项目打包与部署
+
+
+开发环境 -> 测试环境 ？ 开发环境 -> 生产环境 ？
+
+1、启动时可用选项
+
+```
+--open 自动打开浏览器
+--port 8899  自定义端口，不建议使用
+```
+
+2、图片使用
+
+	1）在HMTL、CSS、JS中都可以使用图片。放在assets目录中的图片，最终会被webpack打包并处理。
+	2）放在public目录中的图片，项目打包时不会被处理；并且放在public中的图片，更能方便地进行CDN加速部署。
+
+```
+<!-- 在HTML中使用图片 -->
+<img src="/1.png" alt="图片">
+<img src="../assets/logo.png" alt="">
+<div class="img1"></div>
+<div class="img2"></div>
+
+<!-- 在CSS中使用图片 -->
+.img1 {
+  width: 100px;
+  height: 100px;
+  background: url('/1.png') no-repeat 0 0 / 100px 100px;
+}
+.img2 {
+  width: 100px;
+  height: 100px;
+  background: url('../assets/logo.png') no-repeat 0 0 / 100px 100px;
+}
+```
+
+	3）工作中，我们建议使用模块化来管理项目中所有被使用到的图片。项目中的图片有三个来源，分别是assets目录、public目录和远程外部图片。模块化写法参考如下：
+
+```
+// 开发环境：指向 public 目录
+let cdnUrl = '/'
+// 线上环境：当项目打包上线时，把cdnUrl切换成图片服务器地址
+// let cdnUrl = 'https://qiniu.com/qf/webapp'
+
+export default {
+	// 远程外部图片
+	jdicon: 'https://wqimg.jd.com/imgproxy/n7/s150x150_jfs/t1/50018/39/8127/229510/5d5b5043E66769ff0/8907776f7bd66d57.jpg.dpg',
+
+	// assets目录中的图片
+  logo: ()=>import('@/assets/logo.png'),
+  a: ()=>import('@/assets/imgs/a.png'),
+
+	// public目录中的图片
+  car: cdnUrl + 'icons/car.png',
+  train: cdnUrl + 'icons/train.png',
+  plane: cdnUrl + 'icons/plane.png'
+}
+```
+
+3、publicPath
+
+```
+	./
+	/
+	/qf/
+	https://www.qiniu.com/qf/web/
+```
+
+4、hash缓存原理
+
+浏
+
+
+
+5、多页面配置
+
+不是每个应用都需要是一个单页应用。Vue CLI 支持使用 vue.config.js 中的 pages 选项构建一个多页面的应用。构建好的应用将会在不同的入口之间高效共享通用的 chunk 以获得最佳的加载性能。
+
+```
+pages: {
+	index: {
+		// page 的入口
+		entry: 'src/main.js',
+		// 模板来源
+		template: 'public/index.html',
+		// 在 dist/index.html 的输出
+		filename: 'index.html',
+		// 当使用 title 选项时，
+		// template 中的 title 标签需要是 <title><%= htmlWebpackPlugin.options.title %></title>
+		title: '首页',
+		// 在这个页面中包含的块，默认情况下会包含
+		// 提取出来的通用 chunk 和 vendor chunk。
+		chunks: ['chunk-vendors', 'chunk-common', 'index']
+	},
+	// 当使用只有入口的字符串格式时，
+	// 模板会被推导为 `public/subpage.html`
+	// 并且如果找不到的话，就回退到 `public/index.html`。
+	// 输出文件名会被推导为 `subpage.html`。
+	about : {
+		entry: 'src/main.js',
+		title: '关于我们',
+		chunks: ['chunk-vendors', 'chunk-common', 'index']
+	}
+}
+```
+
+6、项目部署
+
+1）首先搞清楚要上什么环境（测试、生产）
+	把axios的baseUrl更改成对应的服务器地址
+
+2）项目上线有没有第三方的CDN加速器？
+	如果没有，什么都不用做
+	如果有，要把项目中图片绝对路径搞明白，改成对应CDN服务器地址
+	如果上CDN时，除了图片，还有js、css都要加速，改vue.config.js中的publicPath
+
+3）自主购买云服务器部署个人网站
+
+	域名购买与备案：
+		.com/.cn/.org 
+		备案一般需要20个工作日（公信部）
+	
+	购买云服务器或虚拟主机：
+		ECS功能更丰富、可扩展性更强，费用也更高。
+		虚拟主机较便宜，但功能非常有限。
+	
+	DNS解析服务：
+		有了域名和云服务器以后，就可以把域名和IP地址进行解析关联了。
+	
+	云服务器操作（使用ssh工具连接并操作）：
+		nginx安装、数据库软件、git软件等安装。
+		把代码传输到云服务器上（可以使用gitee进行中转）。
+		配置nginx.conf，实现静态资源等服务
+		重启nginx服务，nginx -s reload
+		客户端即可即可访问你的网站了。
+
+4）Nginx的主要功能
+
+	它可以作为静态资源服务器、负载均衡服务器、反向代理服务器。
+
