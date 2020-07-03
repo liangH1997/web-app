@@ -34,7 +34,7 @@ let cartModule = {
                 return
             }
             getCartList(payload).then((res)=>{
-                // console.log(res)
+                console.log(res)
                 res.map((ele)=>{
                     ele.checked = true
                 })

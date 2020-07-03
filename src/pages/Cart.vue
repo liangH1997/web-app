@@ -125,7 +125,7 @@ export default {
             
             let data = {
                 num: item.num,
-                id: item._id
+                id: item.good_id
             }
             this.$api.upDateCart(data).then(()=>{
                 // console.log(data)
@@ -150,7 +150,7 @@ export default {
         },
         onDelete(item){
             let params = {
-                id : item._id
+                id : item.good_id
             }
             this.$api.deleteCart(params).then(()=>{
                 this.upDateList({})

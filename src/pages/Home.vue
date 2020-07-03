@@ -32,30 +32,14 @@
     <!-- 轮播图 -->
     <div class="swipeBox">
       <van-swipe class="my-swipe" :autoplay="2000" indicator-color="white">
-        <van-swipe-item>
+        <van-swipe-item v-for='item in bannerlist' :key='item.id'>
           <van-image
             width="10rem"
-            src="//m.360buyimg.com/mobilecms/s700x280_jfs/t1/111721/2/10307/91752/5ee9b29aEd7492985/514223eba53a0f43.jpg!cr_1125x445_0_171!q70.jpg.dpg"
+            :src="item.img"
+            :title="item.title"
           />
         </van-swipe-item>
-        <van-swipe-item>
-          <van-image
-            width="10rem"
-            src="//m.360buyimg.com/mobilecms/s700x280_jfs/t1/129018/5/4911/92159/5ee84715Eb6b58ef6/69be111cfc1f61ab.jpg!cr_1125x445_0_171!q70.jpg.dpg"
-          />
-        </van-swipe-item>
-        <van-swipe-item>
-          <van-image
-            width="10rem"
-            src="//m.360buyimg.com/mobilecms/s700x280_jfs/t1/112127/35/8751/101036/5ed37cd5E79a8753c/8ef4aaf67a3b8a3e.jpg!cr_1125x445_0_171!q70.jpg.dpg"
-          />
-        </van-swipe-item>
-        <van-swipe-item>
-          <van-image
-            width="10rem"
-            src="//m.360buyimg.com/mobilecms/s700x280_jfs/t1/128343/2/3865/100429/5ed706a6E2bd139ab/78b146b5f33fc33b.jpg!cr_1125x445_0_171!q70.jpg.dpg"
-          />
-        </van-swipe-item>
+        
       </van-swipe>
     </div>
 
@@ -126,7 +110,8 @@ export default {
       page : 1,
       goodList : [],
       loading : false,
-      finished : false
+      finished : false,
+      bannerlist : []
     };
   },
   methods: {
@@ -139,7 +124,7 @@ export default {
     },
     getGoodList(){
       let params = {
-        hot : true,
+        hot : false,
         page : this.page
       }
       this.$api.getList(params).then(res=>{
@@ -175,6 +160,9 @@ export default {
   },
   mounted (){
     this.getGoodList()
+    this.$api.getBanner().then(arr=>{
+      this.bannerlist=arr
+    })
   }
 };
 </script>

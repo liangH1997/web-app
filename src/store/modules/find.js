@@ -1,7 +1,8 @@
+import {getCateGoods} from '@/utils/api'
 export default {
     namespaced : true,
     state : {
-        cateGoods : {},
+        allGoods : {},
         findlist : []
     },
     getters : {
@@ -10,30 +11,31 @@ export default {
                 // console.log(state.findlist)
                 return Math.floor(state.findlist.length/3)
             }else{
-                // console.log(state)
+                console.log(state)
                 return 3
-            }
-            // }
-            
+            }   
         }
     },
     mutations : {
-        updateCates(state,payload){
-            // console.log(payload.key)
-            state.cateGoods[payload.key] = payload.value
-            // console.log(state.cateGoods[payload.key])
-            state.findlist = state.cateGoods[payload.key]
-            // console.log(state.findlist)
+        update(state,payload){
+            state.allGoods[payload.key]=payload.value
+            state.findlist = payload.value
         },
         updateList(state,payload){
-            // console.log(payload)
-            state.findlist = state.cateGoods[payload]
-            // console.log(state.findlist[payload])
-            // console.log(state.cateGoods[payload.key])
-
+            state.findlist = state.allGoods[payload]
         }
     },
     actions : {
-
-    }
+        goUpdate(store,payload){
+            // console.log(payload)
+            getCateGoods(payload).then(res=>{
+                let data = {
+                    key : payload.cate,
+                    value : res
+                }
+                // console.log(res)
+                store.commit('update',data)
+            })
+        }  
+    } 
 }

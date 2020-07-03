@@ -17,13 +17,13 @@
       :key = 'item'
       >
         <van-grid-item>
-          <van-image :src="findlist[3*(item-1)].img" />
+          <van-image :src="findlist==[]?'':findlist[3*(item-1)].img" />
         </van-grid-item>
         <van-grid-item>
-          <van-image :src="findlist[3*(item-1)+1].img" />
+          <van-image :src="findlist==[]?'':findlist[3*(item-1)+1].img" />
         </van-grid-item>
         <van-grid-item>
-          <van-image :src="findlist[3*(item-1)+2].img" />
+          <van-image :src="findlist==[]?'':findlist[3*(item-1)+2].img" />
         </van-grid-item>
       </van-grid>
     </div>
@@ -43,14 +43,15 @@ import {
   Image
 }from 'vant'
 
-import {mapState,mapMutations, mapGetters} from 'vuex'
+import {mapState,mapMutations,mapGetters,  mapActions} from 'vuex'
 
 export default {
   name : 'Find',
   data : ()=>{
     return {
       activeKey : 0,
-      cates : []
+      cates : [],
+      // num : 3
     }
   },
   components : {
@@ -63,25 +64,18 @@ export default {
     [Image.name]:Image
   },
   computed : {
-    ...mapState('find',['cateGoods','findlist']),
+    ...mapState('find',['allGoods','findlist']),
     ...mapGetters('find',['num'])
   },
   methods : {
-    ...mapMutations('find',['updateCates','updateList']),
-    
+    ...mapMutations('find',['updateList']),
+    ...mapActions('find',['goUpdate']),
     getGoods(){
       let params = {
         cate : this.cates[this.activeKey].cate
       }
-      this.$api.getCateGoods(params).then((res)=>{
-        let payload = {
-          key : this.activeKey,
-          value : res
-        }
-        this.updateCates(payload)
-      })
+      this.goUpdate(params)
     },
-    
     async init(){
       let arr = await this.$api.getAllCates({})
       this.cates = arr
@@ -89,23 +83,10 @@ export default {
       this.getGoods()
     },
     onChange(index){
-      // console.log(index)
-      console.log(this.cateGoods[index])
-      // console.log(this.findlist)
-      // 先判断缓存中有没有数据，当没有时才需要调接口
-      if (this.cateGoods[index]!==undefined){
-        console.log('判断')
-        this.updateList(index)
-        return
-      } else{
-        console.log('执行')
-        this.getGoods()
-        this.updateList(index)
-        console.log('123')
-      }
-      
-      
+      console.log(index)
+      this.getGoods()
     }
+      
   },
   mounted (){
     this.init()

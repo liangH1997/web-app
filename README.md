@@ -316,7 +316,7 @@ created by xhf at 2020-6-16
 删除购物车中的商品：/jd/deleteToCart
     方法：GET
     入参：
-        id: String      购物车id
+        id: String      购物车商品id
 
 提交购物：/jd/submitToCart
     方法：POST

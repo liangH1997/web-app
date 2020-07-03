@@ -102,6 +102,15 @@ export function getCateGoods(params){
     })
 }
 
+// 获取banner
+export function getBanner(params){
+    return fetch({
+        url : '/jd/getAd',
+        method : 'GET',
+        params
+    })
+}
+
 export default {
     register,
     toLogin,
@@ -113,5 +122,6 @@ export default {
     deleteCart,
     submitCart,
     getAllCates,
-    getCateGoods
+    getCateGoods,
+    getBanner
 }
