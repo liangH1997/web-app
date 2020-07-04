@@ -43,7 +43,8 @@
 import{
     Form,
     Field,
-    Button
+    Button,
+    Toast
 } from 'vant'
 
 export default {
@@ -57,7 +58,8 @@ export default {
     components : {
         [Form.name]:Form,
         [Field.name]:Field,
-        [Button.name]:Button
+        [Button.name]:Button,
+        [Toast.name]:Toast
     },
     methods : {
         onSubmit (){
@@ -67,8 +69,15 @@ export default {
                 password : this.password,
                 password2 : this.password2
             }
-            this.$api.register(data).then(res=>{
-                console.log('注册成功！',res)
+            this.$api.register(data).then(()=>{
+                console.log('注册成功!')
+                Toast.success({
+                    message : '注册成功',
+                    duration : 500,
+                    onClose : ()=>{
+                        this.$router.push('/login')
+                    }
+                })
             })
         },
         toLogin(){
@@ -81,7 +90,7 @@ export default {
     .register{
         .tip{
             margin-top: .2rem;
-            font-size: .48rem;
+            font-size: .35rem;
             text-align: right;
             padding-right: .533rem;
             span{

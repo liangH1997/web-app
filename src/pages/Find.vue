@@ -82,8 +82,8 @@ export default {
       // console.log(this.cates)
       this.getGoods()
     },
-    onChange(index){
-      console.log(index)
+    onChange(){
+      // console.log(index)
       this.getGoods()
     }
       

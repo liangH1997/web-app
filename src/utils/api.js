@@ -111,6 +111,14 @@ export function getBanner(params){
     })
 }
 
+// 获取用户信息
+export function getInfo(params){
+    return fetch({
+        url : '/user/getInfo',
+        method : 'GET',
+        params
+    })
+}
 export default {
     register,
     toLogin,
@@ -123,5 +131,6 @@ export default {
     submitCart,
     getAllCates,
     getCateGoods,
-    getBanner
+    getBanner,
+    getInfo
 }

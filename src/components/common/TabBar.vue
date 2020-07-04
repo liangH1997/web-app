@@ -1,7 +1,7 @@
 <!-- TabBar -->
 <template>
 
-    <van-tabbar route fixed placeholder>
+    <van-tabbar route fixed placeholder active-color="#F2252C" inactive-color="#000">
         <van-tabbar-item icon="home-o" to='/home'>首页</van-tabbar-item>
         <van-tabbar-item icon="search" dot to='/find'>发现</van-tabbar-item>
         <van-tabbar-item icon="cart-o" :badge="list.length" to='/cart'>购物车</van-tabbar-item>
@@ -31,7 +31,7 @@ export default {
     }
 }
 </script>
-<style lang='scss' scoped>
+<style lang='scss'>
 .van-tabbar{
     border-top: 1px solid #ccc;
 }

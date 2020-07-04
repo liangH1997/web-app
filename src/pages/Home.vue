@@ -13,13 +13,14 @@
     <!-- 搜索栏 -->
     <van-search 
     shape="round" 
-    background="#B10C06" 
+    background="#F2252C" 
     :placeholder="good" 
     disabled 
     show-action
+    :border='false'
     >
       <template #left>
-        <van-icon name="apps-o" @click="goList" color="#fff" size="0.8rem" />
+        <van-icon name="apps-o" @click="goList" color="#fff" size="0.6rem" />
       </template>
 
       <template #action>
@@ -120,7 +121,8 @@ export default {
       this.$router.push('/login')
     },
     goList() {
-      console.log("商品列表");
+      // console.log("商品列表");
+      this.$router.push('/find')
     },
     getGoodList(){
       let params = {
@@ -188,7 +190,7 @@ export default {
   }
   .swipeBox {
     height: 4.133333rem;
-    background-color: #b10c06;
+    background-color: #F2252C;
     overflow: auto;
   }
   .my-swipe {
